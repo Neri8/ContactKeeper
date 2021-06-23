@@ -16,7 +16,7 @@ const Contact = require('../models/Contact');
     response.json(contacts);
   } catch (error) {
     console.error(error.message);
-    response.status(500).send('Server Error');
+    response.status(500).send('Server error');
   }
 });
 
