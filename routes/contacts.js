@@ -1,11 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator/check');
+
+
+const User = require('../models/User');
+const Contact = require('../models/Contact');
 
 // @route  GET api/contacts
 // @desc   Get all users contacts
 // @access Private    ,  because you have to be  logged in to access your contacts
-router.get('/', (request, response) => {
-  response.send('Get all contacts')
+ router.get('/', auth, async (request, response) => {
+  try {
+     const contacts = await Contact.find({user: request.user.id}).sort({date: -1});
+    response.json(contacts);
+  } catch (error) {
+    console.error(error.message);
+    response.status(500).send('Server Error');
+  }
 });
 
 
