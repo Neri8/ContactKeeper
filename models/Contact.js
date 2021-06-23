@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
-const UserSchema = mongoose.Schema({
+const ContactSchema = mongoose.Schema({
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users'
+  },
+
   name: {
     type: String,
     required: true
